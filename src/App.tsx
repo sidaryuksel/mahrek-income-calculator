@@ -1,24 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import AddToList from './components/AddToList';
+import List from './components/List';
+import CardList from './components/CardList';
+
+
+export interface IState {
+  people: {
+    name: string
+    age: number
+    url: string
+    note?: string
+  }[]
+}
 
 function App() {
+  const [people, setPeople] = useState<IState["people"]>([
+    {
+      name: "LeBron James",
+      url: "https://images.unsplash.com/photo-1569013279783-1c1f3a057657?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80",
+      age: 36,
+      note: "Alergitic to Penicciline"
+    }
+  ])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Income Calculating</h1>
+      <h3>Sidar Yuksel Mahrek Project</h3>
+      <CardList />
+    {/*  <List people={people} />
+      <AddToList people={people} setPeople={setPeople} />
+  */}
     </div>
   );
 }

@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Tree from "react-d3-tree";
 import { CustomNodeElementProps } from 'react-d3-tree/lib/types/common';
-import dataJson from "./data/data.json";
 import { useCenteredTree } from "./helpers/helpers";
 import BasicCard from "./BasicCard";
 import storeType from "../redux/actions/storeType";
@@ -43,9 +42,7 @@ console.log("tree: ", persons);
         nodeSize={nodeSize}
         pathFunc="step"
         orientation="vertical"
-        renderCustomNodeElement={(rd3tProps: CustomNodeElementProps) =>
-          renderForeignObjectNode(rd3tProps)
-        }
+        renderCustomNodeElement={(rd3tProps: CustomNodeElementProps) => renderForeignObjectNode(rd3tProps)}
       />
     </div>
   );

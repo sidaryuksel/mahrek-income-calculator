@@ -8,7 +8,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { v4 } from 'uuid';
 import storeType, { person } from '../redux/actions/storeType';
 import { connect } from 'react-redux';
-import { updateNode, createNode } from '../redux/actions';
+import { updateNode, createNode, clearNodeAndChildren } from '../redux/actions';
 
 const BasicCard = (props: any) => {
   console.log("props: ", props);
@@ -66,7 +66,7 @@ const BasicCard = (props: any) => {
       return list;
     })*/
     console.log("clear: ", clear);
-    //clearNode(id);
+    props.clearNodeAndChildren("61d60e920d4457eb396e8336");
   }
   console.log("useefect id: ", id)
 
@@ -105,10 +105,10 @@ const BasicCard = (props: any) => {
         <CardActions disableSpacing>
           <IconButton name="add" aria-label="add card" size="small" onClick={() => handleClickAdd()}>
             <AddIcon
-              sx={{ fontWeight: "bold", fontSize: "medium", backgroundColor: green[500], color: lightGreen[50] }}
+              sx={{ fontWeight: "bold", fontSize: "medium", backgroundColor: green[500], color: "#fff" }}
             />
           </IconButton>
-          <IconButton aria-label="clear" size="small" sx={{ margin: "0px 5px 0px auto" }} onClick={handleClickClear}>
+          <IconButton aria-label="clear" size="small" sx={{ margin: "0px 5px 0px auto" }} onClick={() => handleClickClear()}>
             <ClearIcon
               name="clear"
               sx={{ fontWeight: "bold", fontSize: "medium", backgroundColor: grey[500], color: grey[50] }}
@@ -127,5 +127,5 @@ const mapStateToProps = (state: storeType) => {
 };
 
 export default connect(mapStateToProps, {
-  updateNode, createNode
+  updateNode, createNode, clearNodeAndChildren
 })(BasicCard);

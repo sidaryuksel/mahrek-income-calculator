@@ -1,6 +1,15 @@
 import { person, data } from "./storeType";
 
 // For Action Creator
+export interface clearNodeAndChildrenAction {
+	type: "CLEAR_NODE";
+	id: string;
+}
+
+export interface clearedNodeAndChildrenAction {
+	type: "CLEARED_NODE";
+	persons: person[];
+}
 
 export interface updateNodeAction {
 	type: "UPDATE_NODE";
@@ -34,6 +43,7 @@ export interface gotPersons {
 }
 
 export const actionIds = {
+	CLEAR_NODE: "CLEAR_NODE",
 	UPDATE_NODE: "UPDATE_NODE",
 	GET_PERSONS: "GET_PERSONS",
 	CREATE_NODE: "CREATE_NODE"

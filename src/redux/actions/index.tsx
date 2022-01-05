@@ -2,8 +2,15 @@ import {
 	updateNodeActionCreator,
 	getPersonsActionCreator,
 	createNodeActionCreator,
+	clearNodeAndChildrenActionCreator
 } from "./actionCreatorTypes";
 
+export const clearNodeAndChildren: clearNodeAndChildrenActionCreator = (id) => {
+	return {
+		type: "CLEAR_NODE",
+		id
+	}
+}
 
 export const updateNode: updateNodeActionCreator = (data) => {
 	return {

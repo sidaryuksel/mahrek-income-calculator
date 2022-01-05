@@ -5,50 +5,56 @@ import { green, lightGreen, grey } from '@mui/material/colors';
 import PersonIcon from '@mui/icons-material/Person';
 import ClearIcon from '@mui/icons-material/Clear';
 import AddIcon from '@mui/icons-material/Add';
-import {v4} from 'uuid';
-import { TreeNodeDatum} from 'react-d3-tree/lib/types/common';
+import { v4 } from 'uuid';
 import storeType, { person } from '../redux/actions/storeType';
 import { connect } from 'react-redux';
-import { getPersons, updatePerson } from '../redux/actions';
+import { updateNode, createNode } from '../redux/actions';
 
-const BasicCard: React.FC<TreeNodeDatum> = (nodeDatum) => {
-  console.log("node datum: ",nodeDatum);
-
-  const [person, setPerson] = React.useState({
-    id: 0,
-    name: "",
-    price: 0,
-    totalPrice: 0,
-    children: []
-  })
-
+const BasicCard = (props: any) => {
+  console.log("props: ", props);
+  /*
+    const [person, setPerson] = React.useState({
+      id: 0,
+      name: "",
+      price: 0,
+      totalPrice: 0,
+      parentId: ""
+    })
+  */
   const [name, setName] = React.useState("");
-  const [price, setPrice] = React.useState(0);
   const [id, setId] = React.useState("");
+  const [price, setPrice] = React.useState(0);
+  const [totalPrice, setTotalPrice] = React.useState(0);
+  const [parentId, setParentId] = React.useState("");
+
   const [add, setAdd] = React.useState(false);
   const [clear, setClear] = React.useState(false);
+
+  React.useEffect(() => {
+    setName(props.name);
+    setId(props.id);
+    setTotalPrice(props.totalPrice);
+    setPrice(props.price);
+    setParentId(props.parentId);
+  }, [setName, setId, setPrice, setTotalPrice, setParentId]);
 
   const inputProps = {
     step: 100,
   };
 
   const handleClickAdd = () => {
-    console.log(person);
-    setId(v4());
-    console.log("id:" , id);
-
     setAdd(true);
 
     /////////////////
     ////değiştirilecek, gelen propstaki person datası update edilecek.
-    //updatePErson(data eklencek);
     console.log("add: ", add);
+    console.log("parentID", id)
 
-   // updatePerson(node);
-
+    const create = props.createNode(id);
+    console.log("create :", create);
   }
   const handleClickClear = () => {
-    console.log(person);
+    // console.log(person);
 
     setClear(true);
     /////////////////
@@ -60,15 +66,28 @@ const BasicCard: React.FC<TreeNodeDatum> = (nodeDatum) => {
       return list;
     })*/
     console.log("clear: ", clear);
-    console.log("person: ", person);
+    //clearNode(id);
   }
+  console.log("useefect id: ", id)
 
   return (
     <>
-      <Card sx={{ maxWidth: 155, alignContent: "center", display: "inline-block", justifyContent: "center" }}>
+      <Card sx={{ maxWidth: 155, alignContent: "center", display: "inline-block", justifyContent: "center" }}
+        onClick={() => {const data= {id, name, price}; props.updateNode(data)}}
+      >
         <CardHeader
           avatar={<PersonIcon />}
-          title={<TextField name="name" id="name" label="" variant="standard" title="You" value={person.name} onChange={(e) => { console.log(person.name); setPerson({ ...person, name: e.target.value }); }} />} />
+          title={
+            <TextField
+              name="name"
+              id="name"
+              label=""
+              variant="standard"
+              title="You"
+              value={name}
+              onChange={(e) => { console.log("input name:", e.target.value); setName(e.target.value); }}
+            />
+          } />
         <CardContent sx={{ margin: "0px", padding: "0" }}>
           <span style={{ fontSize: "0.8rem", padding: "0", marginRight: "5px" }}>Self BV:</span>
           <TextField
@@ -77,14 +96,14 @@ const BasicCard: React.FC<TreeNodeDatum> = (nodeDatum) => {
             variant="standard"
             type="number"
             inputProps={inputProps}
-            value={person.price}
+            value={price}
             sx={{ width: "45%", textAlign: "right", margin: "0", padding: "0", fontSize: "0.8rem" }}
-            onChange={(e) => { console.log(person.price); setPerson({ ...person, price: parseInt(e.target.value) }); }}
+            onChange={(e) => { console.log(price); setPrice(parseInt(e.target.value)); }}
           />
-          <Typography sx={{ width: "100%", fontSize: '12px', fontWeight: '800' }}>Total: 1500</Typography>
+          <Typography sx={{ marginLeft: "-35px", padding: "0", width: "100%", fontSize: '12px', fontWeight: '800' }}>Total: {totalPrice}</Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton name="add" aria-label="add card" size="small" onClick={handleClickAdd}>
+          <IconButton name="add" aria-label="add card" size="small" onClick={() => handleClickAdd()}>
             <AddIcon
               sx={{ fontWeight: "bold", fontSize: "medium", backgroundColor: green[500], color: lightGreen[50] }}
             />
@@ -108,6 +127,5 @@ const mapStateToProps = (state: storeType) => {
 };
 
 export default connect(mapStateToProps, {
-  getPersons,
-  updatePerson,
+  updateNode, createNode
 })(BasicCard);

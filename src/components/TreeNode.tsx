@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Tree from "react-d3-tree";
 import { CustomNodeElementProps } from 'react-d3-tree/lib/types/common';
 import dataJson from "./data/data.json";
 import { useCenteredTree } from "./helpers/helpers";
 import BasicCard from "./BasicCard";
+import storeType from "../redux/actions/storeType";
+import { CardPropType } from "./PropType";
+import { connect } from "react-redux";
 
 const containerStyles = {
   width: "100vw",
@@ -14,36 +17,43 @@ const containerStyles = {
 // both SVG and HTML tags side-by-side.
 // This is made possible by `foreignObject`, which wraps the HTML tags to
 // allow for them to be injected into the SVG namespace.
-const nodeSize = { x: 200, y: 200 };
-const foreignObjectProps = { width: nodeSize.x, height: nodeSize.y, x: -100, y: -80 };
 
-const renderForeignObjectNode = (
-  { nodeDatum }: CustomNodeElementProps
-) => (
-  < g >
-    <circle r={1}></circle>
-    {/* `foreignObject` requires width & height to be explicitly set. */}
-    <foreignObject {...foreignObjectProps} >
-      <BasicCard {...nodeDatum} />
-    </foreignObject>
-  </g >
-);
-
-export default function TreeNode() {
+const TreeNode: React.FC<CardPropType> = ({ persons }) => {
   const [translate, containerRef] = useCenteredTree();
+
+  const nodeSize = { x: 200, y: 200 };
+  const foreignObjectProps = { width: nodeSize.x, height: nodeSize.y, x: -100, y: -80 };
+
+  const renderForeignObjectNode = ({ nodeDatum }: CustomNodeElementProps) => (
+    <g>
+      <circle r={1}></circle>
+      {/* `foreignObject` requires width & height to be explicitly set. */}
+      <foreignObject {...foreignObjectProps} >
+        <BasicCard {...nodeDatum} />
+      </foreignObject>
+    </g>
+  );
+console.log("tree: ", persons);
 
   return (
     <div style={containerStyles} ref={containerRef as React.LegacyRef<HTMLDivElement>}>
       <Tree
-        data={dataJson}
-        translate={{ x: 300, y: 300 }}
+        data={persons}
+        translate={{ x: 300, y: 100 }}
         nodeSize={nodeSize}
         pathFunc="step"
+        orientation="vertical"
         renderCustomNodeElement={(rd3tProps: CustomNodeElementProps) =>
           renderForeignObjectNode(rd3tProps)
         }
-        orientation="vertical"
       />
     </div>
   );
+};
+const mapState = (state: storeType) => {
+  return {
+    persons: state.persons,
+  }
 }
+
+export default connect(mapState)(TreeNode);

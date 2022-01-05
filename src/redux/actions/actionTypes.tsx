@@ -1,10 +1,15 @@
-import { person } from "./storeType";
+import { person, data } from "./storeType";
 
 // For Action Creator
 
-export interface updatePersonAction {
-	type: "UPDATE_PERSON";
-	person: person;
+export interface updateNodeAction {
+	type: "UPDATE_NODE";
+	data: data;
+}
+
+export interface createNodeAction {
+	type: "CREATE_NODE";
+	parentId: string;
 }
 
 export interface getPersons {
@@ -12,9 +17,15 @@ export interface getPersons {
 }
 
 // For Reducers
-export interface updatedPersonAction {
-	type: "UPDATED_PERSON";
-	person: person;
+export interface updatedNodeAction {
+	type: "UPDATED_NODE";
+	persons: person[];
+}
+
+// For Reducers
+export interface createdNodeAction {
+	type: "CREATED_NODE";
+	persons: person[];
 }
 
 export interface gotPersons {
@@ -23,6 +34,7 @@ export interface gotPersons {
 }
 
 export const actionIds = {
-	UPDATE_PERSON: "UPDATE_PERSON",
+	UPDATE_NODE: "UPDATE_NODE",
 	GET_PERSONS: "GET_PERSONS",
+	CREATE_NODE: "CREATE_NODE"
 };

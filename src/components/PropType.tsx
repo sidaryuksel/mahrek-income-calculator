@@ -1,6 +1,6 @@
 import { person } from "../redux/actions/storeType";
 import {
-	updatePersonActionCreator,
+	updateNodeActionCreator,
 	getPersonsActionCreator,
 } from "../redux/actions/actionCreatorTypes";
 
@@ -15,5 +15,5 @@ export interface CardPropType {
 
 export interface Nodes {
 	tree: person;
-	updatePerson: updatePersonActionCreator;
+	updatePerson: updateNodeActionCreator;
 }

@@ -1,41 +1,61 @@
-import { takeEvery, put, call, StrictEffect } from "redux-saga/effects";
+import { takeEvery, takeLatest, put, call, StrictEffect } from "redux-saga/effects";
 import { actionIds } from "../redux/actions/actionTypes";
 import personApi from "./person-api";
 import { AxiosResponse } from "axios";
 import {
-	updatedPersonAction,
+	updatedNodeAction,
+	updateNodeAction,
+	createNodeAction,
+	createdNodeAction,	
 	gotPersons,
-	updatePersonAction,
 } from "../redux/actions/actionTypes";
 
 // watchers
 
 function* personSaga(): Generator<StrictEffect> {
-	yield takeEvery(actionIds.UPDATE_PERSON, updatePersonWorker);
+	yield takeEvery(actionIds.UPDATE_NODE, updateNodeWorker);
 	yield takeEvery(actionIds.GET_PERSONS, getPersonsWorker);
+	yield takeLatest(actionIds.CREATE_NODE, createNodeWorker);
 }
 
 // workers
 
-function* updatePersonWorker({ person }: updatePersonAction) {
+function* updateNodeWorker({ data }: updateNodeAction) {
+
 	// create person using api		
-	person.children?.push({name: "", price: 0, children: []});
-	console.log("update saga:", person);
+	//person.children?.push({name: "", price: 0, children: []});
+	console.log("update saga:", data);
 
 	try {
-		const response: AxiosResponse = yield call(personApi.put, "/update", {
-			person: person,
+		const response: AxiosResponse = yield call(personApi.put, `/${data.id}`, {
+			data
 		});
 		switch (response.status) {
 			case 201:
-				const data: updatedPersonAction = {
-					type: "UPDATED_PERSON",
-					person: response.data.person,		//here is the data from mongodb, person
+				const updateData: updatedNodeAction = {
+					type: "UPDATED_NODE",
+					persons: response.data.person,		//here is the data from mongodb, person
+				};
+				yield put(updateData);
+		}
+	} catch (err) {}
+	// update our redux store by dispatching a new action
+}
+function* createNodeWorker({parentId}: createNodeAction) {
+console.log("saga parentID: " , parentId);
+	try {
+		const response: AxiosResponse = yield call(personApi.post, "/node", {
+			parentId,
+		});
+		switch (response.status) {
+			case 201:
+				const data: createdNodeAction = {
+					type: "CREATED_NODE",
+					persons: response.data.person,		//here is the data from mongodb, person
 				};
 				yield put(data);
 		}
 	} catch (err) {}
-	// update our redux store by dispatching a new action
 }
 
 function* getPersonsWorker() {

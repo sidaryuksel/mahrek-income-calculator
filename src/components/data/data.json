@@ -1,20 +1,25 @@
-{
+[
+  {
+  "id": 123456,
   "name": "You",
   "price": 0,
+  "totalPrice": 0,
+  "parent": "",
   "children": [
-    {
+    {  
+      "id": 123457,
       "name": "Manager",
       "price": 0,
-      "attributes": {
-        "department": "Production"
-      }
+      "totalPrice": 0,
+      "parent": 123456
     },
     {
+      "id": 123458,
       "name": "Manager",
       "price": 0,
-      "attributes": {
-        "department": "Marketing"
-      }
+      "totalPrice": 0,
+      "parent": 123456
     }
   ]
 }
+]

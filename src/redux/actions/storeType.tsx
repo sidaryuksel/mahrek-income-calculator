@@ -1,11 +1,9 @@
 export type person = {
 	name: string;
-	attributes:{
-		id: number,
-		price: number,
-		totalPrice: number
-	}
-	children?: Array<{}>;
+	id: number,
+	price: number,
+	totalPrice: number
+	parentId: String;
 };
 
 interface storeType {
@@ -13,3 +11,9 @@ interface storeType {
 }
 
 export default storeType;
+
+export type data = {
+	id: string,
+	name: string,
+	price: number
+}

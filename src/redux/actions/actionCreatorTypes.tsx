@@ -1,9 +1,12 @@
 import {
-	updatePersonAction,
+	updateNodeAction,
 	getPersons,
+	createNodeAction,
 } from "./actionTypes";
-import {person} from './storeType';
+import {data} from './storeType';
 
-export type updatePersonActionCreator = (person: person) => updatePersonAction;
+export type updateNodeActionCreator = (data: data) => updateNodeAction;
+
+export type createNodeActionCreator = (parentId: string) => createNodeAction;
 
 export type getPersonsActionCreator = () => getPersons;

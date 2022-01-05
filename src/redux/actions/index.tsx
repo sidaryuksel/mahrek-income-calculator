@@ -1,18 +1,26 @@
 import {
-	updatePersonActionCreator,
+	updateNodeActionCreator,
 	getPersonsActionCreator,
+	createNodeActionCreator,
 } from "./actionCreatorTypes";
 
 
-export const updatePerson: updatePersonActionCreator = (person) => {
+export const updateNode: updateNodeActionCreator = (data) => {
 	return {
-		type: "UPDATE_PERSON",
-		person,
+		type: "UPDATE_NODE",
+		data: data
 	};
 };
 
 export const getPersons: getPersonsActionCreator = () => {
 	return {
 		type: "GET_PERSONS",
+	};
+};
+
+export const createNode: createNodeActionCreator = (parentId) => {
+	return {
+		type: "CREATE_NODE",
+		parentId,
 	};
 };

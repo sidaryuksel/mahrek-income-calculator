@@ -3,34 +3,34 @@ import { actionIds } from "../redux/actions/actionTypes";
 import personApi from "./person-api";
 import { AxiosResponse } from "axios";
 import {
-	createdPersonAction,
-	deletedPersonAction,
+	updatedPersonAction,
 	gotPersons,
-	createPersonAction,
-	deletePersonAction,
+	updatePersonAction,
 } from "../redux/actions/actionTypes";
 
 // watchers
 
 function* personSaga(): Generator<StrictEffect> {
-	yield takeEvery(actionIds.CREATE_PERSON, createPersonWorker);
-	yield takeEvery(actionIds.DELETE_PERSON, deletePersonWorker);
+	yield takeEvery(actionIds.UPDATE_PERSON, updatePersonWorker);
 	yield takeEvery(actionIds.GET_PERSONS, getPersonsWorker);
 }
 
 // workers
 
-function* createPersonWorker({ title }: createPersonAction) {
-	// create person using api
+function* updatePersonWorker({ person }: updatePersonAction) {
+	// create person using api		
+	person.children?.push({name: "", price: 0, children: []});
+	console.log("update saga:", person);
+
 	try {
-		const response: AxiosResponse = yield call(personApi.post, "/person", {
-			title: title,
+		const response: AxiosResponse = yield call(personApi.put, "/update", {
+			person: person,
 		});
 		switch (response.status) {
 			case 201:
-				const data: createdPersonAction = {
-					type: "CREATED_PERSON",
-					person: response.data.data.person,
+				const data: updatedPersonAction = {
+					type: "UPDATED_PERSON",
+					person: response.data.person,		//here is the data from mongodb, person
 				};
 				yield put(data);
 		}
@@ -38,31 +38,16 @@ function* createPersonWorker({ title }: createPersonAction) {
 	// update our redux store by dispatching a new action
 }
 
-function* deletePersonWorker({ id }: deletePersonAction) {
-	try {
-		const response: AxiosResponse = yield call(personApi.delete, `/person/${id}`);
-		switch (response.status) {
-			case 200:
-				const data: deletedPersonAction = {
-					type: "DELETED_PERSON",
-					id,
-				};
-				yield put(data);
-		}
-	} catch (err) {}
-}
-
-
-
 function* getPersonsWorker() {
 	try {
-		const response: AxiosResponse = yield call(personApi.get, "/person");
+		const response: AxiosResponse = yield call(personApi.get, "/");
 		switch (response.status) {
 			case 200:
 				const data: gotPersons = {
 					type: "GOT_PERSONS",
-					persons: response.data.data.persons,
+					persons: response.data.data,
 				};
+				console.log(data);
 				yield put(data);
 		}
 	} catch (err) {}

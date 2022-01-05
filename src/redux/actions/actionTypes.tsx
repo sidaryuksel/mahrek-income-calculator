@@ -1,14 +1,10 @@
 import { person } from "./storeType";
 
 // For Action Creator
-export interface deletePersonAction {
-	type: "DELETE_PERSON";
-	id: string;
-}
 
-export interface createPersonAction {
-	type: "CREATE_PERSON";
-	title: string;
+export interface updatePersonAction {
+	type: "UPDATE_PERSON";
+	person: person;
 }
 
 export interface getPersons {
@@ -16,14 +12,9 @@ export interface getPersons {
 }
 
 // For Reducers
-export interface createdPersonAction {
-	type: "CREATED_PERSON";
+export interface updatedPersonAction {
+	type: "UPDATED_PERSON";
 	person: person;
-}
-
-export interface deletedPersonAction {
-	type: "DELETED_PERSON";
-	id: string;
 }
 
 export interface gotPersons {
@@ -32,7 +23,6 @@ export interface gotPersons {
 }
 
 export const actionIds = {
-	DELETE_PERSON: "DELETE_PERSON",
-	CREATE_PERSON: "CREATE_PERSON",
+	UPDATE_PERSON: "UPDATE_PERSON",
 	GET_PERSONS: "GET_PERSONS",
 };

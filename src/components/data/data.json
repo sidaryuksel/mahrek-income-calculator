@@ -1,0 +1,20 @@
+{
+  "name": "You",
+  "price": 0,
+  "children": [
+    {
+      "name": "Manager",
+      "price": 0,
+      "attributes": {
+        "department": "Production"
+      }
+    },
+    {
+      "name": "Manager",
+      "price": 0,
+      "attributes": {
+        "department": "Marketing"
+      }
+    }
+  ]
+}

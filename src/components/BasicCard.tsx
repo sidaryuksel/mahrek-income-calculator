@@ -1,20 +1,30 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import { Card, CardHeader, CardContent, CardActions, TextField, Typography } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
 import { green, lightGreen, grey } from '@mui/material/colors';
 import PersonIcon from '@mui/icons-material/Person';
 import ClearIcon from '@mui/icons-material/Clear';
 import AddIcon from '@mui/icons-material/Add';
-import TextField from '@mui/material/TextField';
-import { Typography } from '@mui/material';
+import {v4} from 'uuid';
+import { TreeNodeDatum} from 'react-d3-tree/lib/types/common';
+import storeType, { person } from '../redux/actions/storeType';
+import { connect } from 'react-redux';
+import { getPersons, updatePerson } from '../redux/actions';
 
-const BasicCard = () => {
-  const [name, setName] = React.useState("You");
+const BasicCard: React.FC<TreeNodeDatum> = (nodeDatum) => {
+  console.log("node datum: ",nodeDatum);
+
+  const [person, setPerson] = React.useState({
+    id: 0,
+    name: "",
+    price: 0,
+    totalPrice: 0,
+    children: []
+  })
+
+  const [name, setName] = React.useState("");
   const [price, setPrice] = React.useState(0);
+  const [id, setId] = React.useState("");
   const [add, setAdd] = React.useState(false);
   const [clear, setClear] = React.useState(false);
 
@@ -23,59 +33,81 @@ const BasicCard = () => {
   };
 
   const handleClickAdd = () => {
-    console.log(name);
-    console.log(price);
+    console.log(person);
+    setId(v4());
+    console.log("id:" , id);
 
     setAdd(true);
-    console.log("add: ",add);
-    ///burada tre'ye children eklenecek
+
+    /////////////////
+    ////değiştirilecek, gelen propstaki person datası update edilecek.
+    //updatePErson(data eklencek);
+    console.log("add: ", add);
+
+   // updatePerson(node);
+
   }
   const handleClickClear = () => {
-    console.log(name);
-    console.log(price);
+    console.log(person);
 
     setClear(true);
-    console.log("clear: ",clear);
-    //////burda clear props unu true olarak set edicem
+    /////////////////
+    ////değiştirilecek, gelen propstaki person datası update edilecek.
+    //updatePErson(data eklencek);
+    /*
+    setPerson(prevState => {
+      const list = { name: prevState.name, price: prevState.price };
+      return list;
+    })*/
+    console.log("clear: ", clear);
+    console.log("person: ", person);
   }
-  return (
 
-    <Card sx={{ maxWidth: 155, alignContent: "center", display: "inline-block", justifyContent: "center" }}>
-      <CardHeader
-        avatar={<PersonIcon />}
-        title={<TextField name="name" id="name" label="" variant="standard" title="You" value={name} onChange={(e) => {console.log(name); setName(e.target.value);}}/>} />
-      <CardContent sx={{ margin: "0px", padding: "0" }}>
-        <span style={{ fontSize: "0.8rem", padding: "0", marginRight: "5px" }}>Self BV:</span>
-        <TextField
-          name="Self BV:"
-          id="self-bv"
-          variant="standard"
-          type="number"
-          inputProps={inputProps}
-          value={price}
-          sx={{ width: "45%", textAlign: "right", margin: "0", padding: "0", fontSize: "0.8rem" }}
-          onChange={(e) => {console.log(price); setPrice(parseInt(e.target.value));}}
-        />
-        <Typography sx={{width:"100%", fontSize:'12px', fontWeight:'800'}}>Total: 1500</Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add card" size="small">
-          <AddIcon
-          name="add"
-            sx={{ fontWeight: "bold", fontSize: "medium", backgroundColor: green[500], color: lightGreen[50] }}
-            onClick={handleClickAdd}
+  return (
+    <>
+      <Card sx={{ maxWidth: 155, alignContent: "center", display: "inline-block", justifyContent: "center" }}>
+        <CardHeader
+          avatar={<PersonIcon />}
+          title={<TextField name="name" id="name" label="" variant="standard" title="You" value={person.name} onChange={(e) => { console.log(person.name); setPerson({ ...person, name: e.target.value }); }} />} />
+        <CardContent sx={{ margin: "0px", padding: "0" }}>
+          <span style={{ fontSize: "0.8rem", padding: "0", marginRight: "5px" }}>Self BV:</span>
+          <TextField
+            name="Self BV:"
+            id="self-bv"
+            variant="standard"
+            type="number"
+            inputProps={inputProps}
+            value={person.price}
+            sx={{ width: "45%", textAlign: "right", margin: "0", padding: "0", fontSize: "0.8rem" }}
+            onChange={(e) => { console.log(person.price); setPerson({ ...person, price: parseInt(e.target.value) }); }}
           />
-        </IconButton>
-        <IconButton aria-label="clear" size="small" sx={{ margin: "0px 5px 0px auto" }}>
-          <ClearIcon
-          name="clear"
-            sx={{ fontWeight: "bold", fontSize: "medium", backgroundColor: grey[500], color: grey[50] }}
-            onClick={handleClickClear}
-          />
-        </IconButton>
-      </CardActions>
-    </Card>
+          <Typography sx={{ width: "100%", fontSize: '12px', fontWeight: '800' }}>Total: 1500</Typography>
+        </CardContent>
+        <CardActions disableSpacing>
+          <IconButton name="add" aria-label="add card" size="small" onClick={handleClickAdd}>
+            <AddIcon
+              sx={{ fontWeight: "bold", fontSize: "medium", backgroundColor: green[500], color: lightGreen[50] }}
+            />
+          </IconButton>
+          <IconButton aria-label="clear" size="small" sx={{ margin: "0px 5px 0px auto" }} onClick={handleClickClear}>
+            <ClearIcon
+              name="clear"
+              sx={{ fontWeight: "bold", fontSize: "medium", backgroundColor: grey[500], color: grey[50] }}
+            />
+          </IconButton>
+        </CardActions>
+      </Card>
+    </>
   );
 }
 
-export default BasicCard;
+const mapStateToProps = (state: storeType) => {
+  return {
+    persons: state.persons,
+  };
+};
+
+export default connect(mapStateToProps, {
+  getPersons,
+  updatePerson,
+})(BasicCard);

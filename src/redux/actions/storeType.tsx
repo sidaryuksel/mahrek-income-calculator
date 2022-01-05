@@ -1,7 +1,11 @@
 export type person = {
-	id: string;
-	title: string;
-	isCompleted: boolean;
+	name: string;
+	attributes:{
+		id: number,
+		price: number,
+		totalPrice: number
+	}
+	children?: Array<{}>;
 };
 
 interface storeType {

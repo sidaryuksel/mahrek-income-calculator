@@ -1,39 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
-import AddToList from './components/AddToList';
-import List from './components/List';
-import CardList from './components/CardList';
+import { AppPropType } from './components/PropType';
+import storeType from './redux/actions/storeType';
+import { connect } from 'react-redux';
+import { getPersons } from './redux/actions';
+import TreeNode from './components/TreeNode';
 
+const App:React.FC<AppPropType> = ({persons, getPersons}) => {
 
-export interface IState {
-  people: {
-    name: string
-    age: number
-    url: string
-    note?: string
-  }[]
-}
-
-function App() {
-  const [people, setPeople] = useState<IState["people"]>([
-    {
-      name: "LeBron James",
-      url: "https://images.unsplash.com/photo-1569013279783-1c1f3a057657?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80",
-      age: 36,
-      note: "Alergitic to Penicciline"
-    }
-  ])
+  useEffect(() => {
+    const data = getPersons();
+    console.log("user effect", data);
+}, [getPersons]);
 
   return (
     <div className="App">
       <h1>Income Calculating</h1>
       <h3>Sidar Yuksel Mahrek Project</h3>
-      <CardList />
-    {/*  <List people={people} />
-      <AddToList people={people} setPeople={setPeople} />
-  */}
+      <TreeNode />
     </div>
   );
 }
+const mapState = (state: storeType) => {
+  return {
+    persons: state.persons,
+  }
+}
 
-export default App;
+export default connect(mapState, {getPersons})(App);

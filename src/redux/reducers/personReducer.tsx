@@ -1,14 +1,12 @@
 import { Reducer } from "redux";
 import { person } from "../actions/storeType";
 import {
-	createdPersonAction,
-	deletedPersonAction,
+	updatedPersonAction,
 	gotPersons,
 } from "../actions/actionTypes";
 
 type actions =
-	| createdPersonAction
-	| deletedPersonAction
+	| updatedPersonAction
 	| gotPersons;
 
 const initialState: person[] = [];
@@ -18,12 +16,11 @@ const personReducer: Reducer<person[], actions> = (
 	action
 ) => {
 	switch (action.type) {
-		case "CREATED_PERSON":
+		case "UPDATED_PERSON":
 			return [...state, action.person];
-		case "DELETED_PERSON":
-			return [...state.filter((person) => person.id !== action.id)];
 		case "GOT_PERSONS":
-			return [...state, ...action.persons];
+			console.log("reducer: ",action.persons);
+			return [...action.persons];
 		default:
 			return [...state];
 	}

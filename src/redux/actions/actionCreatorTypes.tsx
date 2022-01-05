@@ -1,13 +1,9 @@
 import {
-	deletePersonAction,
-	createPersonAction,
+	updatePersonAction,
 	getPersons,
 } from "./actionTypes";
+import {person} from './storeType';
 
-
-
-export type deletePersonActionCreator = (id: string) => deletePersonAction;
-
-export type createPersonActionCreator = (title: string) => createPersonAction;
+export type updatePersonActionCreator = (person: person) => updatePersonAction;
 
 export type getPersonsActionCreator = () => getPersons;

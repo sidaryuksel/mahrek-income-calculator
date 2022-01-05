@@ -1,20 +1,13 @@
 import {
-	deletePersonActionCreator,
-	createPersonActionCreator,
+	updatePersonActionCreator,
 	getPersonsActionCreator,
 } from "./actionCreatorTypes";
 
-export const deletePerson: deletePersonActionCreator = (id) => {
-	return {
-		type: "DELETE_PERSON",
-		id,
-	};
-};
 
-export const createPerson: createPersonActionCreator = (title) => {
+export const updatePerson: updatePersonActionCreator = (person) => {
 	return {
-		type: "CREATE_PERSON",
-		title,
+		type: "UPDATE_PERSON",
+		person,
 	};
 };
 

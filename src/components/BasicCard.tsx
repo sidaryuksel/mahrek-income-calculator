@@ -8,7 +8,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { v4 } from 'uuid';
 import storeType, { person } from '../redux/actions/storeType';
 import { connect } from 'react-redux';
-import { updateNode, createNode, clearNodeAndChildren } from '../redux/actions';
+import { updateNode, createNode, clearNodeAndChildren, updateTotal } from '../redux/actions';
 
 const BasicCard = (props: any) => {
   console.log("props: ", props);
@@ -66,14 +66,14 @@ const BasicCard = (props: any) => {
       return list;
     })*/
     console.log("clear: ", clear);
-    props.clearNodeAndChildren("61d5e45ae590aacb0d17f729");
+    props.clearNodeAndChildren(id);
   }
   console.log("useefect id: ", id)
 
   return (
     <>
       <Card sx={{ maxWidth: 155, alignContent: "center", display: "inline-block", justifyContent: "center" }}
-        onClick={() => {const data= {id, name, price}; props.updateNode(data)}}
+        onClick={() => {const data= {id, name, price}; props.updateNode(data); props.updateTotal(data)}}
       >
         <CardHeader
           avatar={<PersonIcon />}
@@ -127,5 +127,5 @@ const mapStateToProps = (state: storeType) => {
 };
 
 export default connect(mapStateToProps, {
-  updateNode, createNode, clearNodeAndChildren
+  updateNode, createNode, clearNodeAndChildren, updateTotal
 })(BasicCard);

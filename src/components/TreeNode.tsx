@@ -38,7 +38,7 @@ console.log("tree: ", persons);
     <div style={containerStyles} ref={containerRef as React.LegacyRef<HTMLDivElement>}>
       <Tree
         data={persons}
-        translate={{ x: 300, y: 100 }}
+        translate={{ x: 500, y: 100 }}
         nodeSize={nodeSize}
         pathFunc="step"
         orientation="vertical"

@@ -2,6 +2,7 @@ import { Reducer } from "redux";
 import { person } from "../actions/storeType";
 import {
 	updatedNodeAction,
+	updatedTotalAction,
 	gotPersons,
 	createdNodeAction,
 	clearedNodeAndChildrenAction,
@@ -10,6 +11,7 @@ import {
 type actions =
 	| clearedNodeAndChildrenAction
 	| updatedNodeAction
+	| updatedTotalAction
 	| createdNodeAction
 	| gotPersons;
 
@@ -20,6 +22,7 @@ const personReducer: Reducer<person[], actions> = (
 	action
 ) => {
 	switch (action.type) {
+		case "UPDATED_TOTAL":
 		case "CLEARED_NODE":
 		case "UPDATED_NODE":
 		case "CREATED_NODE":

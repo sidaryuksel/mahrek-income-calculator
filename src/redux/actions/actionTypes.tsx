@@ -16,6 +16,11 @@ export interface updateNodeAction {
 	data: data;
 }
 
+export interface updateTotalAction {
+	type: "UPDATE_TOTAL";
+	data: data;
+}
+
 export interface createNodeAction {
 	type: "CREATE_NODE";
 	parentId: string;
@@ -28,6 +33,11 @@ export interface getPersons {
 // For Reducers
 export interface updatedNodeAction {
 	type: "UPDATED_NODE";
+	persons: person[];
+}
+
+export interface updatedTotalAction {
+	type: "UPDATED_TOTAL";
 	persons: person[];
 }
 
@@ -45,6 +55,7 @@ export interface gotPersons {
 export const actionIds = {
 	CLEAR_NODE: "CLEAR_NODE",
 	UPDATE_NODE: "UPDATE_NODE",
+	UPDATE_TOTAL: "UPDATE_TOTAL",
 	GET_PERSONS: "GET_PERSONS",
 	CREATE_NODE: "CREATE_NODE"
 };

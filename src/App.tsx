@@ -16,8 +16,10 @@ const App: React.FC<AppPropType> = ({persons, getPersons}) => {
 
   return (
     <div className="App">
+      {/*
       <h1>Income Calculating</h1>
       <h3>Sidar Yuksel Mahrek Project</h3>
+      */}
      { persons.length !== 0 ?
       <TreeNode />
       : null}

@@ -66,7 +66,7 @@ const BasicCard = (props: any) => {
       return list;
     })*/
     console.log("clear: ", clear);
-    props.clearNodeAndChildren("61d60e920d4457eb396e8336");
+    props.clearNodeAndChildren("61d5e45ae590aacb0d17f729");
   }
   console.log("useefect id: ", id)
 

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const personApi = axios.create({
-	baseURL: "https://mahrek-backend.herokuapp.com/api",
+	baseURL: "/api",
 });
 
 export default personApi;

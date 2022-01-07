@@ -6,10 +6,10 @@ import { getPersons } from './redux/actions';
 import storeType from './redux/actions/storeType';
 import './App.css';
 
+
 const App: React.FC<AppPropType> = ({persons, getPersons}) => {
   useEffect(() => {
-    getPersons();
-
+        getPersons();
   }, [getPersons]);
   
   console.log("person from db:", persons);

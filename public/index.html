@@ -26,9 +26,9 @@
         cluster: 'eu'
       });
   
-      var channel = pusher.subscribe('my-channel');
-      channel.bind('my-event', function(data) {
-        alert(JSON.stringify(data));
+      var channel = pusher.subscribe('mahrek-project');
+      channel.bind('get-nodes', function(data) {
+        console.log("pusher", data)
       });
     </script>
 

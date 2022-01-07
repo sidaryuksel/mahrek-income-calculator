@@ -15,7 +15,6 @@ import {
 } from "../redux/actions/actionTypes";
 
 // watchers
-
 function* personSaga(): Generator<StrictEffect> {
 	yield takeEvery(actionIds.UPDATE_NODE, updateNodeWorker);
 	yield takeLatest(actionIds.UPDATE_TOTAL, updateTotalWorker);

@@ -12,17 +12,16 @@ const containerStyles = {
   height: "100vh"
 };
 
-// Here we're using `renderCustomNodeElement` render a component that uses
-// both SVG and HTML tags side-by-side.
-// This is made possible by `foreignObject`, which wraps the HTML tags to
-// allow for them to be injected into the SVG namespace.
-
 const TreeNode: React.FC<CardPropType> = ({ persons }) => {
   const [translate, containerRef] = useCenteredTree();
 
   const nodeSize = { x: 200, y: 200 };
   const foreignObjectProps = { width: nodeSize.x, height: nodeSize.y, x: -100, y: -80 };
 
+  // Here we're using `renderCustomNodeElement` render a component that uses
+  // both SVG and HTML tags side-by-side.
+  // This is made possible by `foreignObject`, which wraps the HTML tags to
+  // allow for them to be injected into the SVG namespace.
   const renderForeignObjectNode = ({ nodeDatum }: CustomNodeElementProps) => (
     <g>
       <circle r={1}></circle>
@@ -32,7 +31,7 @@ const TreeNode: React.FC<CardPropType> = ({ persons }) => {
       </foreignObject>
     </g>
   );
-console.log("tree: ", persons);
+  console.log("tree: ", persons);
 
   return (
     <div style={containerStyles} ref={containerRef as React.LegacyRef<HTMLDivElement>}>

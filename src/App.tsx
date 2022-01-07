@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import './App.css';
 import { AppPropType } from './components/PropType';
 import TreeNode from './components/TreeNode';
 import { getPersons } from './redux/actions';
 import storeType from './redux/actions/storeType';
+import './App.css';
 
 const App: React.FC<AppPropType> = ({persons, getPersons}) => {
   useEffect(() => {

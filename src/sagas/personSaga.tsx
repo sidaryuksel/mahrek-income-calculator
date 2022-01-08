@@ -5,8 +5,6 @@ import { AxiosResponse } from "axios";
 import {
 	updatedNodeAction,
 	updateNodeAction,
-	updatedTotalAction,
-	updateTotalAction,
 	createNodeAction,
 	createdNodeAction,	
 	gotPersons,
@@ -17,7 +15,6 @@ import {
 // watchers
 function* personSaga(): Generator<StrictEffect> {
 	yield takeEvery(actionIds.UPDATE_NODE, updateNodeWorker);
-	yield takeLatest(actionIds.UPDATE_TOTAL, updateTotalWorker);
 	yield takeEvery(actionIds.GET_PERSONS, getPersonsWorker);
 	yield takeLatest(actionIds.CREATE_NODE, createNodeWorker);
 	yield takeEvery(actionIds.CLEAR_NODE, clearedNodeAndChildrenWorker);
@@ -39,29 +36,6 @@ function* clearedNodeAndChildrenWorker({id}: clearNodeAndChildrenAction) {
 		}
 	} catch (err) {}
 }
-	
-function* updateTotalWorker({ data }: updateTotalAction) {
-
-	// create person using api		
-	//person.children?.push({name: "", price: 0, children: []});
-	console.log("update saga:", data);
-
-	try {
-		const response: AxiosResponse = yield call(personApi.put, `/total/${data.id}`, {
-			data
-		});
-		switch (response.status) {
-			case 201:
-				const updateData: updatedTotalAction = {
-					type: "UPDATED_TOTAL",
-					persons: response.data.person,		//here is the data from mongodb, person
-				};
-				yield put(updateData);
-		}
-	} catch (err) {}
-	// update our redux store by dispatching a new action
-}
-
 
 function* updateNodeWorker({ data }: updateNodeAction) {
 

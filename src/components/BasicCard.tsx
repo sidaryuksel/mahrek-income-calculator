@@ -7,13 +7,14 @@ import ClearIcon from '@mui/icons-material/Clear';
 import AddIcon from '@mui/icons-material/Add';
 import storeType from '../redux/actions/storeType';
 import { connect } from 'react-redux';
-import { updateNode, createNode, clearNodeAndChildren, updateTotal } from '../redux/actions';
+import { updateNode, createNode, clearNodeAndChildren } from '../redux/actions';
 
 const BasicCard = (props: any) => {
   const [name, setName] = React.useState("");
   const [id, setId] = React.useState("");
   const [price, setPrice] = React.useState(0);
   const [totalPrice, setTotalPrice] = React.useState(0);
+  const [parentId, setParentId] = React.useState("");
 
   const [add, setAdd] = React.useState(false);
   const [clear, setClear] = React.useState(false);
@@ -23,7 +24,8 @@ const BasicCard = (props: any) => {
     setId(props.id);
     setTotalPrice(props.totalPrice);
     setPrice(props.price);
-  }, [setName, setId, setPrice, setTotalPrice]);
+    setParentId(props.parentId);
+  }, [setName, setId, setPrice, setTotalPrice, setParentId]);
 
   const inputProps = {
     step: 100,
@@ -47,7 +49,7 @@ const BasicCard = (props: any) => {
   return (
     <>
       <Card sx={{ maxWidth: 155, alignContent: "center", display: "inline-block", justifyContent: "center" }}
-        onClick={() => {const data= {id, name, price}; props.updateNode(data); props.updateTotal(data)}}
+        onClick={() => {const data= {id, name, price, totalPrice, parentId, prevPrice: props.price}; props.updateNode(data)}}
       >
         <CardHeader
           avatar={<PersonIcon />}
@@ -101,5 +103,5 @@ const mapStateToProps = (state: storeType) => {
 };
 
 export default connect(mapStateToProps, {
-  updateNode, createNode, clearNodeAndChildren, updateTotal
+  updateNode, createNode, clearNodeAndChildren
 })(BasicCard);

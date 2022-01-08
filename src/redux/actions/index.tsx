@@ -1,6 +1,5 @@
 import {
 	updateNodeActionCreator,
-	updateTotalActionCreator,
 	getPersonsActionCreator,
 	createNodeActionCreator,
 	clearNodeAndChildrenActionCreator
@@ -20,12 +19,6 @@ export const updateNode: updateNodeActionCreator = (data) => {
 	};
 };
 
-export const updateTotal: updateTotalActionCreator = (data) => {
-	return {
-		type: "UPDATE_TOTAL",
-		data: data
-	};
-};
 
 export const getPersons: getPersonsActionCreator = () => {
 	return {

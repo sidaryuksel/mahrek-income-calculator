@@ -6,7 +6,7 @@ import {
 } from "./actionTypes";
 import {data} from './storeType';
 
-export type clearNodeAndChildrenActionCreator = (id: string) => clearNodeAndChildrenAction;
+export type clearNodeAndChildrenActionCreator = (data: data) => clearNodeAndChildrenAction;
 
 export type updateNodeActionCreator = (data: data) => updateNodeAction;
 

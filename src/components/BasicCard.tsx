@@ -16,9 +16,6 @@ const BasicCard = (props: any) => {
   const [totalPrice, setTotalPrice] = React.useState(0);
   const [parentId, setParentId] = React.useState("");
 
-  const [add, setAdd] = React.useState(false);
-  const [clear, setClear] = React.useState(false);
-
   React.useEffect(() => {
     setName(props.name);
     setId(props.id);
@@ -32,24 +29,20 @@ const BasicCard = (props: any) => {
   };
 
   const handleClickAdd = () => {
-    setAdd(true);
     props.createNode(id);
   }
 
   //clear button activated
   const handleClickClear = () => {
-
-    setClear(true);
-
-    console.log("clear: ", clear);
-    props.clearNodeAndChildren(id);
+    const data = { id, parentId, totalPrice };
+    console.log("clear: ", data);
+    props.clearNodeAndChildren(data);
   }
-  console.log("useefect id: ", id)
 
   return (
     <>
       <Card sx={{ maxWidth: 155, alignContent: "center", display: "inline-block", justifyContent: "center" }}
-        onClick={() => {const data= {id, name, price, totalPrice, parentId, prevPrice: props.price}; props.updateNode(data)}}
+        onClick={() => { const data = { id, name, price, totalPrice, parentId, prevPrice: props.price }; props.updateNode(data) }}
       >
         <CardHeader
           avatar={<PersonIcon />}

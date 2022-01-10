@@ -21,11 +21,13 @@ function* personSaga(): Generator<StrictEffect> {
 }
 
 // workers
-function* clearedNodeAndChildrenWorker({id}: clearNodeAndChildrenAction) {
-	console.log("saga id:", id);
+function* clearedNodeAndChildrenWorker({data}: clearNodeAndChildrenAction) {
+	console.log("saga id:", data);
 
 	try {
-		const response: AxiosResponse = yield call(personApi.delete, `/${id}`);
+		const response: AxiosResponse = yield call(personApi.delete, `/${data.id}`, {
+			data
+		});
 		switch (response.status) {
 			case 201:
 				const updateData: clearedNodeAndChildrenAction = {

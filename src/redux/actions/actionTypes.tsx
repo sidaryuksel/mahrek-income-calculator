@@ -3,7 +3,7 @@ import { person, data } from "./storeType";
 // For Action Creator
 export interface clearNodeAndChildrenAction {
 	type: "CLEAR_NODE";
-	id: string;
+	data: data;
 }
 
 export interface clearedNodeAndChildrenAction {

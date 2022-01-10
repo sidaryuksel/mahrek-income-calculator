@@ -14,8 +14,8 @@ export default storeType;
 
 export type data = {
 	id: string,
-	name: string,
-	price: number,
+	name?: string,
+	price?: number,
 	totalPrice?: number,
 	parentId?: string,
 	prevPrice?:number

@@ -5,10 +5,10 @@ import {
 	clearNodeAndChildrenActionCreator
 } from "./actionCreatorTypes";
 
-export const clearNodeAndChildren: clearNodeAndChildrenActionCreator = (id) => {
+export const clearNodeAndChildren: clearNodeAndChildrenActionCreator = (data) => {
 	return {
 		type: "CLEAR_NODE",
-		id
+		data: data
 	}
 }
 

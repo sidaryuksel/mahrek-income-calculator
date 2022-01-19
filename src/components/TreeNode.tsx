@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Tree from "react-d3-tree";
 import { CustomNodeElementProps } from 'react-d3-tree/lib/types/common';
 import { useCenteredTree } from "./helpers/helpers";

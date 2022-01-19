@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { AppPropType } from './components/PropType';
 import TreeNode from './components/TreeNode';
@@ -7,9 +7,11 @@ import storeType from './redux/actions/storeType';
 import './App.css';
 
 
+
 const App: React.FC<AppPropType> = ({persons, getPersons}) => {
+
   useEffect(() => {
-        getPersons();
+    getPersons();
   }, [getPersons]);
   
   console.log("person from db:", persons);

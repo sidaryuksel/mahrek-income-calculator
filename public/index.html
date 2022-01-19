@@ -16,22 +16,6 @@
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
-    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-    <script>
-  
-      // Enable pusher logging - don't include this in production
-      Pusher.logToConsole = true;
-  
-      var pusher = new Pusher('2a2bca4cf92576d43e20', {
-        cluster: 'eu'
-      });
-  
-      var channel = pusher.subscribe('mahrek-project');
-      channel.bind('get-nodes', function(data) {
-        console.log("pusher", data)
-      });
-    </script>
-
     <title>Sidar Yüksel Mahrek Proje</title>
   </head>
   <body>

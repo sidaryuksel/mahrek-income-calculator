@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Tree from "react-d3-tree";
 import { CustomNodeElementProps } from 'react-d3-tree/lib/types/common';
 import { useCenteredTree } from "./helpers/helpers";
@@ -13,7 +13,8 @@ const containerStyles = {
 };
 
 const TreeNode: React.FC<CardPropType> = ({ persons }) => {
-  const [translate, containerRef] = useCenteredTree();
+  const [containerRef] = useCenteredTree();
+  //const [nodes, setNodes] = useState(persons)
 
   const nodeSize = { x: 200, y: 200 };
   const foreignObjectProps = { width: nodeSize.x, height: nodeSize.y, x: -100, y: -80 };
@@ -31,7 +32,6 @@ const TreeNode: React.FC<CardPropType> = ({ persons }) => {
       </foreignObject>
     </g>
   );
-  console.log("tree: ", persons);
 
   return (
     <div style={containerStyles} ref={containerRef as React.LegacyRef<HTMLDivElement>}>
@@ -46,6 +46,7 @@ const TreeNode: React.FC<CardPropType> = ({ persons }) => {
     </div>
   );
 };
+
 const mapState = (state: storeType) => {
   return {
     persons: state.persons,

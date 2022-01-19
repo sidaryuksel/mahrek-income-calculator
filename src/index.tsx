@@ -8,6 +8,7 @@ import {composeWithDevTools} from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
 import reducers from "./redux/reducers";
 import personSaga from "./sagas/personSaga";
+//import 'https://js.pusher.com/7.0/pusher.min.js';
 
 const sagaMiddleWare = createSagaMiddleware();
 
